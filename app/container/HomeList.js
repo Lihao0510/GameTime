@@ -54,7 +54,7 @@ class HomeList extends Component {
                 {
                     itemArr.map((item, position) => {
                         return (
-                            <HomeListItem item={item} key={position} position={position + 1}/>
+                            <HomeListItem {...this.props} item={item} key={position} position={position + 1} />
                         )
                     })
                 }

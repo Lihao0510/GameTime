@@ -17,6 +17,7 @@ import {
     InteractionManager,
     TouchableOpacity
 } from 'react-native';
+import NewsDetail from './NewsDetail';
 import Toolbar from '../container/Toolbar';
 import RefreshListView, {RefreshState} from '../components/RefreshListView';
 import NewsListItem from '../components/NewsListItem'
@@ -278,7 +279,7 @@ class News extends Component {
                     onLeftPress={onDrawerOpen}
                     iconType={1}
                     titleText="游戏新闻"
-                    rightIcon="LOCATION"
+                    rightIcon="SUBMIT"
                     {...this.props}
                 />
                 <RefreshListView
@@ -287,7 +288,18 @@ class News extends Component {
                     renderHeader={() => this.renderViewPager()}
                     renderRow={(rowData) => {
                         return (
-                            <NewsListItem newsItem={rowData}/>
+                            <NewsListItem
+                                newsItem={rowData}
+                                onPress={() => {
+                                    navigator.push({
+                                        component: NewsDetail,
+                                        name: 'NewsDetail',
+                                        args: {
+                                            name: rowData.title
+                                        }
+                                    })
+                                }}
+                            />
                         )
                     }}
                     onHeaderRefresh={

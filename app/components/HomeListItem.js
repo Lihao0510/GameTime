@@ -11,6 +11,7 @@ import {
     Platform,
     Image,
 } from 'react-native';
+import NewsDetail from '../pages/NewsDetail';
 import WindowUtil from '../utils/WindowUtil';
 import ColorUtil from '../utils/ColorUtils';
 
@@ -122,13 +123,24 @@ class HomeListItem extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <TouchableOpacity
+                style={styles.container}
+                onPress={() => {
+                    this.props.navigator.push({
+                        component: NewsDetail,
+                        name: 'NewsDetail',
+                        args: {
+                            name: '新闻详情'
+                        }
+                    })
+                }}
+            >
                 {this.renderHeader()}
                 {this.renderTitle()}
                 {this.renderImage()}
                 {this.renderContent()}
                 {this.renderFooter()}
-            </View>
+            </TouchableOpacity>
         )
     }
 }

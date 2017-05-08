@@ -1,4 +1,7 @@
 /**
+ * Created by lihao on 2017/5/4.
+ */
+/**
  * Created by lihao on 2017/4/23.
  */
 /**
@@ -12,27 +15,17 @@ import {
     Text,
     View
 } from 'react-native';
-import {Button} from 'antd-mobile';
-import Toolbar from '../container/Toolbar';
+import Toolbar from '../container/Toolbar'
 
 
 class NewsDetail extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Toolbar titleText="HomeDetail" onLeftPress={this.props.navigator.pop} {...this.props} />
+                <Toolbar titleText="搜索资讯" onLeftPress={this.props.navigator.pop} {...this.props} />
                 <Text style={styles.welcome}>
                     Welcome Here!, {this.props.name}!
                 </Text>
-                <Button
-                    type="primary"
-                    style={{
-                        height: 40,
-                        width: 100
-                    }}
-                >
-                    确定
-                </Button>
             </View>
         );
     }

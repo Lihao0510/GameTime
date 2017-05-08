@@ -5,7 +5,6 @@ import {LOAD_MORE, INIT_LIST, initList, loadMore} from '../actions/HomeListActio
 
 const homeListReducer = (state = initList(), action) => {
 
-    console.log('HomeListReducer开始运行!');
 
     switch (action.type) {
         case LOAD_MORE:
@@ -18,12 +17,12 @@ const homeListReducer = (state = initList(), action) => {
             return {
                 ...state,
                 page: 0
-            }
+            };
             break;
         default:
             return {
                 ...state
-            }
+            };
             break;
     }
 };

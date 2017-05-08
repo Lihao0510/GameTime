@@ -21,7 +21,7 @@ import {
 import Swiper from 'react-native-swiper';
 import WindowUtil from '../utils/WindowUtil';
 import ColorUtil from '../utils/ColorUtils';
-import DetailPage from './NewsDetail';
+import SearchView from './Search';
 import typeImage from '../images/pictures/pic_food.png';
 const screenWidth = WindowUtil.window.width;
 const screenHeight = WindowUtil.window.height;
@@ -166,10 +166,10 @@ class Home extends Component {
                     <TouchableOpacity
                         onPress={() => {
                             navigator.push({
-                                component: DetailPage,
-                                name: 'NewsDetail',
+                                component: SearchView,
+                                name: 'SearchView',
                                 args: {
-                                    name: 'Search'
+                                    name: '搜索页面'
                                 }
                             })
                         }}

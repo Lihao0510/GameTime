@@ -24,7 +24,7 @@ class APP extends React.Component {
                         configureScene={(route, routeStack) => {
                             let configure = Navigator.SceneConfigs.PushFromRight;
                             switch (route.name) {
-                                case 'NewsDetail':
+                                case 'SearchView':
                                     configure = Navigator.SceneConfigs.FadeAndroid;
                                     return{
                                         ...configure,
@@ -53,7 +53,7 @@ class APP extends React.Component {
                         configureScene={(route, routeStack) => {
                             let configure = Navigator.SceneConfigs.PushFromRight;
                             switch (route.name) {
-                                case 'NewsDetail':
+                                case 'SearchView':
                                     configure = Navigator.SceneConfigs.FadeAndroid;
                                     return{
                                         ...configure,

@@ -8,6 +8,7 @@ import {
 import React from 'react';
 import Main from './Main';
 import WindowUtil from './utils/WindowUtil';
+import storage from './utils/Storage';
 import {Provider} from 'react-redux';
 import Store from './redux/Store';
 let loadingPicture = require('./images/pictures/pic_cover.png');
@@ -36,6 +37,7 @@ class GameTime extends React.Component {
     }
 
     componentDidMount() {
+        global.storage = storage;
         setTimeout(() => {
             this.setState({
                 showWelcome: 0

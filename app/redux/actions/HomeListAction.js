@@ -12,7 +12,6 @@ export const loadMore = () => {
 
 export const initList = () => {
 
-    console.log('initList执行');
     return {
         type: INIT_LIST,
         page: 0

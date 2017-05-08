@@ -68,7 +68,7 @@ class WisdomNews extends Component {
         return (
             <DrawerLayout
                 type="static"
-                content={<DrawerView />}
+                content={<DrawerView {...this.props}/>}
                 openDrawerOffset={90}
                 onClose={onDrawerClose}
                 styles={drawerStyles}
@@ -180,7 +180,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         open: state.drawerReducer.open
     }
-}
+};
 
 /*
  * mapDispatchToProps中的方法,会体现在当前组件的this.props中
@@ -203,7 +203,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         }
 
     }
-}
+};
 
 //高阶函数,Redux中的容器组件必须由connect生成
 export default connect(mapStateToProps, mapDispatchToProps)(WisdomNews);

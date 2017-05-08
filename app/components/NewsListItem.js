@@ -30,9 +30,7 @@ class NewsListItem extends Component {
         return (
             <TouchableOpacity
                 style={styles.container}
-                onPress={() => {
-                    alert(this.newsItem.title)
-                }}
+                onPress={this.props.onPress}
             >
                 <View
                     style={styles.leftView}

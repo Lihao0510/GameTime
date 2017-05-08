@@ -18,10 +18,11 @@ import searchIcon from '../images/icons/icon_search.png'
 import locationIcon from '../images/icons/icon_location.png'
 import helpIcon from '../images/icons/icon_help.png'
 import submitIcon from '../images/icons/icon_submit.png'
+import checkinIcon from '../images/icons/icon_checkin.png'
 
 import WindowUtil from '../utils/WindowUtil';
 
-const iconArr = [searchIcon, locationIcon, helpIcon, submitIcon];
+const iconArr = [searchIcon, locationIcon, helpIcon, submitIcon, checkinIcon];
 
 class Toolbar extends Component {
 
@@ -63,6 +64,9 @@ class Toolbar extends Component {
                 break;
             case 'SUBMIT':
                 rightIconType = 4;
+                break;
+            case 'CHECKIN':
+                rightIconType = 5;
                 break;
             default:
                 break;
