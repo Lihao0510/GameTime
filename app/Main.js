@@ -1,14 +1,32 @@
 /**
  * Created by lihao on 2017/4/23.
  */
-import React from 'react'
-import {Navigator, View, StatusBar, Platform} from 'react-native'
-import Start from './HomePage'
+import React from 'react';
+import {Navigator, View, StatusBar, Platform} from 'react-native';
+import Start from './HomePage';
+import {connect} from 'react-redux';
+import {login, logout} from './redux/actions/LoginAction';
 
 class APP extends React.Component {
 
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        storage.load({
+            key: 'CurUser',
+            autoSync: false,
+            syncInBackground: false
+        }).then((result) => {
+            if (result && result.user_phone !== '') {
+                this.props.onLoginOK(result)
+            } else {
+
+            }
+        }).catch(err => {
+
+        });
     }
 
 
@@ -26,7 +44,14 @@ class APP extends React.Component {
                             switch (route.name) {
                                 case 'SearchView':
                                     configure = Navigator.SceneConfigs.FadeAndroid;
-                                    return{
+                                    return {
+                                        ...configure,
+                                        gestures: {}
+                                    };
+                                    break;
+                                case 'Contribute':
+                                    configure = Navigator.SceneConfigs.FloatFromBottom;
+                                    return {
                                         ...configure,
                                         gestures: {}
                                     };
@@ -55,7 +80,7 @@ class APP extends React.Component {
                             switch (route.name) {
                                 case 'SearchView':
                                     configure = Navigator.SceneConfigs.FadeAndroid;
-                                    return{
+                                    return {
                                         ...configure,
                                         gestures: {}
                                     };
@@ -76,4 +101,25 @@ class APP extends React.Component {
     }
 }
 
-export default APP;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        isLogin: state.loginReducer.isLogin,
+        curuser: state.loginReducer.user
+    }
+};
+
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+
+        onLoginOK: (user) => {
+            dispatch(login(user));
+        },
+
+        onLogoutOK: () => {
+            dispatch(logout());
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(APP);

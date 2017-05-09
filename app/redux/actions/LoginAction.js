@@ -5,16 +5,18 @@
 export const LOGIN_OK = 'LOAD_MORE';
 export const LOGOUT_OK = 'INIT_LIST';
 
-export const login = () => {
+export const login = (user) => {
     return({
         type: LOGIN_OK,
-        isLogin: true
+        isLogin: true,
+        user: user
     })
 };
 
 export const logout = () => {
     return({
         type: LOGOUT_OK,
-        isLogin: false
+        isLogin: false,
+        user: {}
     })
 };

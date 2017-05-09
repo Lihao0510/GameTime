@@ -22,6 +22,7 @@ import ColorUtil from '../utils/ColorUtils';
 import WindowUtil from '../utils/WindowUtil';
 import {LoginMessage} from '../utils/Globals';
 import LoginPage from './Login';
+import AboutPage from './About';
 
 class System extends Component {
 
@@ -69,6 +70,7 @@ class System extends Component {
     }
 
     renderPersonMessage() {
+        const curuser = this.props.curuser;
         return (
             <View
                 style={styles.userMessage}
@@ -97,7 +99,7 @@ class System extends Component {
                             fontSize: 16
                         }}
                     >
-                        您尚未登录
+                        {this.props.isLogin ? curuser.user_name? curuser.user_name: curuser.user_phone: '您尚未登录'}
                     </Text>
                     <Text
                         style={{
@@ -106,7 +108,7 @@ class System extends Component {
                             marginBottom: 9
                         }}
                     >
-                        等级: 菜鸟
+                        {this.props.isLogin ? curuser.user_type? '等级' + curuser.user_name: '未知等级': '未知等级'}
                     </Text>
                 </View>
                 <TouchableOpacity
@@ -156,6 +158,15 @@ class System extends Component {
                     iconType={1}
                     titleText="个人中心"
                     rightIcon="HELP"
+                    onRightPress={() => {
+                        this.props.navigator.push({
+                            component: AboutPage,
+                            name: 'AboutPage',
+                            args: {
+                                name: '我的信息'
+                            }
+                        })
+                    }}
                     {...this.props}
                 />
                 {this.renderPersonMessage()}
@@ -231,17 +242,12 @@ class System extends Component {
                     style={styles.itemBody}
                     onPress={() => {
                         storage.load({
-                            key: 'LoginMessage',
+                            key: 'CurUser',
                         }).then((result) => {
-                            LoginMessage.token = result.token;
-                            LoginMessage.userid = result.userid;
-                            LoginMessage.username = result.username;
                             console.log(result);
                         }).catch(err => {
-                            //如果没有找到数据且没有sync方法，
-                            //或者有其他异常，则在catch中返回
                             console.warn(err.message);
-                        })
+                        });
                     }}
                 >
                     <Image
@@ -365,6 +371,15 @@ class System extends Component {
                 {this.renderLongDevideLine()}
                 <TouchableOpacity
                     style={styles.itemBody}
+                    onPress={() => {
+                        this.props.navigator.push({
+                            component: AboutPage,
+                            name: 'AboutPage',
+                            args: {
+                                name: '我的信息'
+                            }
+                        })
+                    }}
                 >
                     <Image
                         style={styles.leftIcon}
@@ -432,15 +447,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, ownProps) => {
-
     return {
-        isLogin: state.loginReducer.isLogin
+        isLogin: state.loginReducer.isLogin,
+        curuser: state.loginReducer.user
     }
 };
 
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-
     return {}
 };
 

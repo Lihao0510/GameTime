@@ -10,6 +10,7 @@ const loginReducer = (state = logout(), action) => {
         case LOGIN_OK:
             return {
                 ...state,
+                user: action.user,
                 isLogin: action.isLogin
             };
             break;

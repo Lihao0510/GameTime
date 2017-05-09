@@ -8,10 +8,12 @@ import {
     View,
     Image
 } from 'react-native';
+import {Toast} from 'antd-mobile';
 import Toolbar from '../container/Toolbar'
 import ColorUtil from '../utils/ColorUtils';
 import SmartInput from '../components/SmartInputText';
 import SmartButton from '../components/SmartButton';
+import {baseUrl} from '../utils/UrlList';
 
 class Register extends Component {
 
@@ -21,11 +23,55 @@ class Register extends Component {
             userPhone: '',
             userPwd: '',
             userPwdRepeat: ''
-        }
+        };
+        this.doRegister = this.doRegister.bind(this);
     }
 
     componentDidMount() {
         console.log(this.props);
+    }
+
+    doRegister() {
+        let userphone = this.state.userPhone;
+        let userpwd = this.state.userPwd;
+        let userpwdcheck = this.state.userPwdRepeat;
+
+        if (!userphone.match("^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[0,1-9])|(18[0,1-9]))\\d{8}$")) {
+            Toast.fail('账号格式错误', 1);
+            return;
+        }
+        if (userpwd !== userpwdcheck) {
+            Toast.fail('密码不一致', 1);
+            return;
+        }
+
+        Toast.loading('登录中...', 3, () => {
+            Toast.fail('无网络访问', 1);
+        });
+
+        fetch(baseUrl + 'login/rigister', {
+            method: 'POST',
+            headers: {'Accept': 'application/json', 'Content-Type': 'application/json',},
+            body: JSON.stringify({
+                userphone: userphone,
+                userpwd: userpwd,
+                useremail: ''
+            })
+        }).then((result) => {
+            Toast.hide();
+            return result.json();
+        }).then((data) => {
+            if (data.status === 1) {
+                Toast.success('注册成功', 1);
+                setTimeout(() => {
+                    this.props.navigator.pop();
+                }, 1000);
+            } else if (data.status === 4) {
+                Toast.fail('注册失败', 1);
+            }
+        }).catch((e) => {
+            console.log('错误:' + e.toString())
+        })
     }
 
     render() {
@@ -82,9 +128,7 @@ class Register extends Component {
                     secureTextEntry={true}
                 />
                 <SmartButton
-                    onClick={() => {
-                        console.log(this.state)
-                    }}
+                    onClick={this.doRegister}
                     title="注册"
                     style={{
                         width: 180,
@@ -100,7 +144,7 @@ class Register extends Component {
                         fontWeight: 'bold',
                     }}
                 >
-                    开发者:李昊   联系方式:17786123214
+                    开发者:李昊 联系方式:17786123214
                 </Text>
             </View>
         );

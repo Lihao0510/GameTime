@@ -72,6 +72,7 @@ class SmartInputText extends Component {
                     }}
                     placeholder={this.props.placeHolder}
                     secureTextEntry={this.props.secureTextEntry}
+                    underlineColorAndroid="transparent"
                 />
             </View>
         )

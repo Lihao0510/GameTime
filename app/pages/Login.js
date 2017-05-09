@@ -9,12 +9,15 @@ import {
     View,
     Image
 } from 'react-native';
+import {Toast} from 'antd-mobile';
+import {connect} from 'react-redux';
 import Toolbar from '../container/Toolbar';
 import ColorUtil from '../utils/ColorUtils';
 import SmartInput from '../components/SmartInputText';
 import SmartButton from '../components/SmartButton';
 import RigisterPage from './Register';
-import {login, logout}from '../redux/actions/LoginAction';
+import {login, logout} from '../redux/actions/LoginAction';
+import {baseUrl} from '../utils/UrlList';
 
 class Login extends Component {
 
@@ -24,10 +27,50 @@ class Login extends Component {
             userPhone: '',
             userPwd: '',
         }
+        this.doLogin = this.doLogin.bind(this);
     }
 
     componentDidMount() {
         console.log(this.props);
+    }
+
+    doLogin() {
+        Toast.loading('登录中...', 6, () => {
+            Toast.fail('无网络访问', 1);
+        });
+        let userphone = this.state.userPhone;
+        let userpwd = this.state.userPwd;
+
+        fetch(baseUrl + 'login/login', {
+            method: 'POST',
+            headers: {'Accept': 'application/json', 'Content-Type': 'application/json',},
+            body: JSON.stringify({
+                userphone: userphone,
+                userpwd: userpwd
+            })
+        }).then((result) => {
+            Toast.hide();
+            console.log(result.status);
+            return result.json();
+        }).then((data) => {
+            if (data.status === 1) {
+                Toast.success('登陆成功', 1);
+                storage.save({
+                    key: 'CurUser',  // 注意:请不要在key中使用_下划线符号!
+                    data: data.user
+                });
+                this.props.onLoginOK(data.user);
+                setTimeout(() => {
+                    this.props.navigator.pop();
+                }, 1000);
+            } else if (data.status === 0) {
+                Toast.fail('用户不存在', 1);
+            } else if (data.status === 4) {
+                Toast.fail('密码错误', 1);
+            }
+        }).catch((e) => {
+            console.log('错误:' + e.toString());
+        })
     }
 
     render() {
@@ -69,9 +112,7 @@ class Login extends Component {
                     secureTextEntry={true}
                 />
                 <SmartButton
-                    onClick={() => {
-                        console.log(this.state)
-                    }}
+                    onClick={this.doLogin}
                     title="登录"
                     style={{
                         width: 180,
@@ -136,8 +177,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
     return {
 
-        onLoginOK: () => {
-            dispatch(login());
+        onLoginOK: (user) => {
+            dispatch(login(user));
         },
 
         onLogoutOK: () => {
@@ -147,4 +188,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 };
 
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

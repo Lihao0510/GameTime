@@ -16,7 +16,7 @@ import {
 import TabNavigator from 'react-native-tab-navigator';
 import DrawerLayout from 'react-native-drawer'
 import {connect} from 'react-redux';
-import DrawerView from './components/DrawerView'
+import DrawerView from './container/DrawerView'
 import Home from './pages/Home'
 import News from './pages/News'
 import Funny from './pages/Funny'

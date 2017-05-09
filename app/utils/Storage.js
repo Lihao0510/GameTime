@@ -1,6 +1,7 @@
 /**
  * Created by lihao on 2017/5/6.
  */
+"use strict";
 import {AsyncStorage} from 'react-native';
 import Storage from 'react-native-storage';
 
@@ -26,7 +27,6 @@ const storage = new Storage({
     // 你可以在构造函数这里就写好sync的方法
     // 或是写到另一个文件里，这里require引入
     // 或是在任何时候，直接对storage.sync进行赋值修改
-    sync: {}
 });
 
 export default storage;

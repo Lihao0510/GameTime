@@ -18,6 +18,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import NewsDetail from './NewsDetail';
+import Contribute from './Contribute';
 import Toolbar from '../container/Toolbar';
 import RefreshListView, {RefreshState} from '../components/RefreshListView';
 import NewsListItem from '../components/NewsListItem'
@@ -280,6 +281,15 @@ class News extends Component {
                     iconType={1}
                     titleText="游戏新闻"
                     rightIcon="SUBMIT"
+                    onRightPress={() => {
+                        this.props.navigator.push({
+                            component: Contribute,
+                            name: 'Contribute',
+                            args: {
+                                name: '我的信息'
+                            }
+                        })
+                    }}
                     {...this.props}
                 />
                 <RefreshListView

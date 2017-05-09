@@ -11,17 +11,26 @@ import {
     StyleSheet,
     Text,
     View,
-    TextInput
+    Image,
+    TextInput,
+    TouchableWithoutFeedback,
+    TouchableOpacity
 } from 'react-native';
+import Banner from 'react-native-swiper';
 import Toolbar from '../container/Toolbar';
 import {Popup, Button} from 'antd-mobile';
 import WindowUtil from '../utils/WindowUtil';
 import ColorUtil from '../utils/ColorUtils';
 
+import bannerPic1 from '../images/pictures/banner_1.jpg';
+import bannerPic2 from '../images/pictures/banner_2.jpg';
+import bannerPic3 from '../images/pictures/banner_3.jpeg';
+import bannerPic4 from '../images/pictures/banner_4.jpg';
+const adImageArr = [bannerPic1, bannerPic2, bannerPic3, bannerPic4];
 
 class Funny extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.checkIn = this.checkIn.bind(this);
         this.closeCheckIn = this.closeCheckIn.bind(this);
@@ -35,7 +44,6 @@ class Funny extends Component {
                     height: 300,
                     backgroundColor: ColorUtil.white,
                     alignItems: 'center',
-                    justifyContent: 'flex-start'
                 }}
             >
                 <Button
@@ -52,21 +60,6 @@ class Funny extends Component {
                 >
                     取消
                 </Button>
-                <TextInput
-                    multiline={true}
-                    maxLength={120}
-                    style={{
-                        flex: 1,
-                        borderWidth: 1,
-                        borderColor: ColorUtil.themeColor,
-                        borderRadius: 6,
-                        padding: 9,
-                        margin: 12,
-                        marginBottom: 60,
-                        fontSize: 16,
-                        lineHeight: 20
-                    }}
-                />
                 <Text
                     style={{
                         position: 'absolute',
@@ -77,6 +70,25 @@ class Funny extends Component {
                 >
                     发布说说
                 </Text>
+                <TextInput
+                    maxLength={120}
+                    style={{
+                        position: 'absolute',
+                        width: WindowUtil.width - 24,
+                        borderWidth: 1.8,
+                        borderColor: ColorUtil.darkBule,
+                        borderRadius: 6,
+                        padding: 9,
+                        top: 50,
+                        bottom: 60,
+                        left: 15,
+                        right: 15,
+                        fontSize: 16,
+                        lineHeight: 20,
+                    }}
+                    multiline={true}
+                    underlineColorAndroid="transparent"
+                />
                 <Button
                     type="primary"
                     onClick={this.closeCheckIn}
@@ -100,6 +112,42 @@ class Funny extends Component {
         Popup.hide();
     }
 
+    renderBanner() {
+
+        return (
+            <Banner
+                loop={true}
+                autoplay={true}
+                autoplayTimeout={3}
+                height={200}
+                paginationStyle={{bottom: 10}}
+                dotStyle={{backgroundColor: 'rgba(0,0,0,.2)', width: 6, height: 6}}
+                activeDotStyle={{backgroundColor: 'rgba(0,0,0,.5)', width: 6, height: 6}}>
+                {
+                    adImageArr.map((item, position) => {
+                        return (
+                            <TouchableWithoutFeedback
+                                key={position}
+                                onPress={() => {
+                                    alert(position)
+                                }}
+                            >
+                                <Image
+                                    key={position}
+                                    style={{
+                                        height: 200,
+                                        width: WindowUtil.width
+                                    }}
+                                    source={item}
+                                />
+                            </TouchableWithoutFeedback>
+                        )
+                    })
+                }
+            </Banner>
+        )
+    }
+
     render() {
         const {onDrawerOpen, onDrawerClose, navigator} = this.props;
         return (
@@ -112,9 +160,7 @@ class Funny extends Component {
                     titleText="水友论坛"
                     {...this.props}
                 />
-                <Text style={styles.welcome}>
-                    Welcome to Funny!
-                </Text>
+                {this.renderBanner()}
             </View>
         );
     }

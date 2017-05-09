@@ -18,16 +18,17 @@ import {
     Image,
     RefreshControl
 } from 'react-native';
+import {connect} from 'react-redux'
 import Swiper from 'react-native-swiper';
 import WindowUtil from '../utils/WindowUtil';
 import ColorUtil from '../utils/ColorUtils';
 import SearchView from './Search';
+import NewsList from './NewsList';
 import typeImage from '../images/pictures/pic_food.png';
 const screenWidth = WindowUtil.window.width;
 const screenHeight = WindowUtil.window.height;
 
 import HomeList from '../container/HomeList';
-
 
 import bannerPic1 from '../images/pictures/banner_1.jpg';
 import bannerPic2 from '../images/pictures/banner_2.jpg';
@@ -66,7 +67,7 @@ class Home extends Component {
     }
 
     renderHeader() {
-        const {onDrawerOpen} = this.props;
+        const {onDrawerOpen, curuser} = this.props;
         return (
             <View style={styles.topView}>
                 <View style={styles.toolbar}>
@@ -101,7 +102,7 @@ class Home extends Component {
                             color: ColorUtil.white
                         }}
                     >
-                        您尚未登录
+                        {this.props.isLogin ? curuser.user_name? curuser.user_name: curuser.user_phone: '您尚未登录'}
                     </Text>
                     <View
                         style={{
@@ -245,6 +246,7 @@ class Home extends Component {
                             width: screenWidth - 12,
                             height: 138,
                             margin: 6,
+                            borderRadius: 12
                         }}
                         resizeMode='cover'
                         source={adImageArr[this.state.curAdImage]}
@@ -266,7 +268,13 @@ class Home extends Component {
                                 <TouchableHighlight
                                     key={position}
                                     onPress={() => {
-
+                                        this.props.navigator.push({
+                                            component: NewsList,
+                                            name: 'NewsList',
+                                            args: {
+                                                name: '我的信息'
+                                            }
+                                        })
                                     }}
                                     style={{width: itemWidth, height: itemheight}}
                                 >
@@ -409,5 +417,17 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Home;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        isLogin: state.loginReducer.isLogin,
+        curuser: state.loginReducer.user
+    }
+};
+
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 

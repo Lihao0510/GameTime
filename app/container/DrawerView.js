@@ -17,7 +17,7 @@ import {
     Platform
 } from 'react-native';
 import {connect} from 'react-redux';
-import Toolbar from '../container/Toolbar'
+import Toolbar from './Toolbar'
 import PersonDetail from '../pages/PersonDetail';
 import ColorUtil from '../utils/ColorUtils';
 import WindowUtil from '../utils/WindowUtil';
@@ -68,6 +68,7 @@ class DrawerView extends Component {
     }
 
     renderPersonMessage() {
+        const curuser = this.props.curuser;
         return(
             <View
                 style={styles.userMessage}
@@ -97,7 +98,7 @@ class DrawerView extends Component {
                             fontSize: 16
                         }}
                     >
-                        您尚未登录
+                        {this.props.isLogin ? curuser.user_name? curuser.user_name: curuser.user_phone: '您尚未登录'}
                     </Text>
                     <Text
                         style={{
@@ -106,7 +107,7 @@ class DrawerView extends Component {
                             marginBottom: 9
                         }}
                     >
-                        等级: 菜鸟
+                        {this.props.isLogin ? curuser.user_type? '等级' + curuser.user_name: '未知等级': '未知等级'}
                     </Text>
                 </View>
 
@@ -450,7 +451,10 @@ const styles = StyleSheet.create({
  * 使用时用 const {open} = this.props; 调用
  * */
 const mapStateToProps = (state, ownProps) => {
-    return {}
+    return {
+        isLogin: state.loginReducer.isLogin,
+        curuser: state.loginReducer.user
+    }
 };
 
 /*
