@@ -151,7 +151,7 @@ class DrawerView extends Component {
                             height: 25,
                             width: 25
                         }}
-                        source={require('../images/icons/sys_jifen.png')}
+                        source={require('../images/icons/sys_mine.png')}
                     />
                     <Text
                         style={{
@@ -192,7 +192,7 @@ class DrawerView extends Component {
                             height: 25,
                             width: 25
                         }}
-                        source={require('../images/icons/sys_jifen.png')}
+                        source={require('../images/icons/sys_talk.png')}
                     />
                     <Text
                         style={{
@@ -233,7 +233,7 @@ class DrawerView extends Component {
                             height: 25,
                             width: 25
                         }}
-                        source={require('../images/icons/sys_jifen.png')}
+                        source={require('../images/icons/sys_like.png')}
                     />
                     <Text
                         style={{
@@ -274,7 +274,7 @@ class DrawerView extends Component {
                             height: 25,
                             width: 25
                         }}
-                        source={require('../images/icons/sys_jifen.png')}
+                        source={require('../images/icons/sys_message.png')}
                     />
                     <Text
                         style={{
@@ -315,7 +315,7 @@ class DrawerView extends Component {
                             height: 25,
                             width: 25
                         }}
-                        source={require('../images/icons/sys_jifen.png')}
+                        source={require('../images/icons/sys_contribute.png')}
                     />
                     <Text
                         style={{
@@ -356,7 +356,7 @@ class DrawerView extends Component {
                             height: 25,
                             width: 25
                         }}
-                        source={require('../images/icons/sys_jifen.png')}
+                        source={require('../images/icons/sys_reply.png')}
                     />
                     <Text
                         style={{
@@ -399,7 +399,7 @@ class DrawerView extends Component {
                             height: 25,
                             width: 25
                         }}
-                        source={require('../images/icons/sys_jifen.png')}
+                        source={require('../images/icons/sys_setting.png')}
                     />
                     <Text
                         style={{
@@ -432,9 +432,7 @@ class DrawerView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: ColorUtil.nearlyWhite,
-        borderRightWidth: 1,
-        borderRightColor: ColorUtil.whiteGray
+        backgroundColor: ColorUtil.nearlyWhite
     },
     userMessage: {
         height: Platform.OS == "ios" ? 205 : 185,

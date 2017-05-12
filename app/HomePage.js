@@ -77,6 +77,12 @@ class WisdomNews extends Component {
             >
                 <TabNavigator
                     tabBarStyle={styles.tabStyle}
+                    style={{
+                        shadowColor: 'black',
+                        shadowOffset: {width: 0, height: 0},
+                        shadowOpacity: 0.6,
+                        shadowRadius: 9
+                    }}
                 >
                     <TabNavigator.Item
                         title="首页"

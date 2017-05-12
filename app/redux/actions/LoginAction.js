@@ -2,8 +2,8 @@
  * Created by lihao on 2017/5/6.
  */
 "use strict";
-export const LOGIN_OK = 'LOAD_MORE';
-export const LOGOUT_OK = 'INIT_LIST';
+export const LOGIN_OK = 'LOGIN_OK';
+export const LOGOUT_OK = 'LOGOUT_OK';
 
 export const login = (user) => {
     return({

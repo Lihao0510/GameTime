@@ -43,11 +43,15 @@ class Home extends Component {
         //this.renderHeader = this.renderHeader.bind(this);  //没有涉及state的方法不需要绑定this
         this.state = {
             curAdImage: 0,
-            isRefreshing: false
-        }
+            isRefreshing: false,
+            showFloatSearch: 0
+        };
+
     }
 
     componentDidMount() {
+        this.scrollListener = this.scrollListener.bind(this);
+        this.renderFloatSearch = this.renderFloatSearch.bind(this);
         this.interval = setInterval(function refreshPic() {
             let curAdImageNum = this.state.curAdImage;
             if (curAdImageNum < adImageArr.length - 1) {
@@ -64,6 +68,79 @@ class Home extends Component {
 
     componentWillUnMount() {
         this.interval && clearInterval(this.interval);
+    }
+
+    scrollListener() {
+        floatStatus = this.state.showFloatSearch;
+        //console.log("组件名称" + this.refs.advertisementView);
+        setTimeout(() => {
+            this.refs.advertisementView.measure((fx, fy, width, height, px, py) => {
+                //console.log("正在测量控件。。。" + fy + width + height + py);
+                if (py < 0 && floatStatus === 0) {
+                    console.log("悬浮窗显示" + " && py:" + py);
+                    this.setState({
+                        showFloatSearch: 1
+                    })
+                } else if (py > 0 && floatStatus === 1) {
+                    console.log("悬浮窗隐藏" + " && py:" + py);
+                    this.setState({
+                        showFloatSearch: 0
+                    })
+                }
+            });
+        });
+
+    }
+
+    renderFloatSearch() {
+        const {navigator} = this.props;
+        return (
+            <View style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: this.state.showFloatSearch === 1 ? (Platform.OS == "ios" ? 65 : 45) : 0,
+                width: WindowUtil.window.width,
+                backgroundColor: ColorUtil.themeColor,
+                alignItems: 'center',
+                flexDirection: 'column',
+                justifyContent: 'flex-end'
+            }}>
+                {this.state.showFloatSearch === 1 ?
+                    <View
+                        style={{
+                            height: 30,
+                            marginBottom: 8,
+                            width: WindowUtil.window.width - 30,
+                            backgroundColor: 'white',
+                            borderRadius: 15,
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            justifyContent: "center",
+                        }}
+                    >
+                        <Image source={require('../images/icons/icon_search_dark.png')}
+                               style={{width: 16, height: 16, marginRight: 12}}/>
+                        <TouchableOpacity
+                            onPress={() => {
+                                navigator.push({
+                                    component: SearchView,
+                                    name: 'SearchView',
+                                    args: {
+                                        name: '搜索页面'
+                                    }
+                                })
+                            }}
+                        ><Text
+                            style={{
+                                fontSize: 14,
+                                color: ColorUtil.deepGray
+                            }}
+                        >请输入搜索内容</Text></TouchableOpacity>
+                    </View> : <View></View>}
+            </View>
+        )
     }
 
     renderHeader() {
@@ -102,7 +179,7 @@ class Home extends Component {
                             color: ColorUtil.white
                         }}
                     >
-                        {this.props.isLogin ? curuser.user_name? curuser.user_name: curuser.user_phone: '您尚未登录'}
+                        {this.props.isLogin ? curuser.user_name ? curuser.user_name : curuser.user_phone : '您尚未登录'}
                     </Text>
                     <View
                         style={{
@@ -231,9 +308,13 @@ class Home extends Component {
 
         return (
             <View
+                ref="advertisementView"
                 style={{
                     width: screenWidth,
                     height: 150,
+                }}
+                onLayout={(e) => {
+                    console.log("正在测量宽高" + e);
                 }}
             >
                 <TouchableWithoutFeedback
@@ -347,32 +428,38 @@ class Home extends Component {
     render() {
         const {onDrawerOpen, navigator, onHomeRefresh} = this.props;
         return (
-            <ScrollView
-                keyboardDismissMode="on-drag"
-                style={styles.container}
-                showsVerticalScrollIndicator={false}
-                onScroll={() => {
-                    console.log('滑动中')
+            <View
+                style={{
+                    flex: 1
                 }}
-                refreshControl={
-                    <RefreshControl
-                        refreshing={this.state.isRefreshing}
-                        colors={['#2196FC', '#00ff00']}
-                        progressBackgroundColor="#ffffff"
-                        onRefresh={onHomeRefresh}
-                    />
-                }
             >
-                {this.renderHeader()}
-                {this.renderSearchView()}
-                {this.renderRecommend()}
-                {this.renderDivider()}
-                {this.renderButtonGroup()}
-                {this.renderDivider()}
-                {this.renderAdvertisement()}
-                {this.renderDivider()}
-                <HomeList {...this.props}/>
-            </ScrollView>
+                <ScrollView
+                    keyboardDismissMode="on-drag"
+                    style={styles.container}
+                    showsVerticalScrollIndicator={false}
+                    onScroll={this.scrollListener}
+                    scrollEventThrottle={9}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.isRefreshing}
+                            colors={['#2196FC', '#00ff00']}
+                            progressBackgroundColor="#ffffff"
+                            onRefresh={onHomeRefresh}
+                        />
+                    }
+                >
+                    {this.renderHeader()}
+                    {this.renderSearchView()}
+                    {this.renderRecommend()}
+                    {this.renderDivider()}
+                    {this.renderButtonGroup()}
+                    {this.renderDivider()}
+                    {this.renderAdvertisement()}
+                    {this.renderDivider()}
+                    <HomeList {...this.props}/>
+                </ScrollView>
+                {this.renderFloatSearch()}
+            </View>
         );
     }
 }

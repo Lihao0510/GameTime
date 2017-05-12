@@ -28,8 +28,6 @@ class System extends Component {
 
     constructor(props) {
         super(props);
-
-
     }
 
     renderDivider() {
@@ -186,7 +184,7 @@ class System extends Component {
                 >
                     <Image
                         style={styles.leftIcon}
-                        source={require('../images/icons/sys_jifen.png')}
+                        source={require('../images/icons/sys_mine.png')}
                     />
                     <Text
                         style={styles.itemText}
@@ -220,7 +218,7 @@ class System extends Component {
                 >
                     <Image
                         style={styles.leftIcon}
-                        source={require('../images/icons/sys_jifen.png')}
+                        source={require('../images/icons/sys_talk.png')}
                     />
                     <Text
                         style={styles.itemText}
@@ -252,7 +250,7 @@ class System extends Component {
                 >
                     <Image
                         style={styles.leftIcon}
-                        source={require('../images/icons/sys_jifen.png')}
+                        source={require('../images/icons/sys_like.png')}
                     />
                     <Text
                         style={styles.itemText}
@@ -278,7 +276,7 @@ class System extends Component {
                 >
                     <Image
                         style={styles.leftIcon}
-                        source={require('../images/icons/sys_jifen.png')}
+                        source={require('../images/icons/sys_message.png')}
                     />
                     <Text
                         style={styles.itemText}
@@ -301,7 +299,7 @@ class System extends Component {
                 >
                     <Image
                         style={styles.leftIcon}
-                        source={require('../images/icons/sys_jifen.png')}
+                        source={require('../images/icons/sys_contribute.png')}
                     />
                     <Text
                         style={styles.itemText}
@@ -324,7 +322,7 @@ class System extends Component {
                 >
                     <Image
                         style={styles.leftIcon}
-                        source={require('../images/icons/sys_jifen.png')}
+                        source={require('../images/icons/sys_reply.png')}
                     />
                     <Text
                         style={styles.itemText}
@@ -349,7 +347,7 @@ class System extends Component {
                 >
                     <Image
                         style={styles.leftIcon}
-                        source={require('../images/icons/sys_jifen.png')}
+                        source={require('../images/icons/sys_setting.png')}
                     />
                     <Text
                         style={styles.itemText}
@@ -383,7 +381,7 @@ class System extends Component {
                 >
                     <Image
                         style={styles.leftIcon}
-                        source={require('../images/icons/sys_jifen.png')}
+                        source={require('../images/icons/sys_about.png')}
                     />
                     <Text
                         style={styles.itemText}
@@ -429,8 +427,8 @@ const styles = StyleSheet.create({
     },
     leftIcon: {
         marginLeft: 15,
-        height: 25,
-        width: 25
+        height: 27,
+        width: 27
     },
     itemText: {
         marginLeft: 15,

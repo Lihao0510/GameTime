@@ -98,7 +98,7 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("/Users/lihao/Desktop/gametime-test.jks")
+            storeFile file("../keystores/gametime-test.jks")
             storePassword "55637179q"
             keyAlias "GameTimeTestKey"
             keyPassword "55637179q"
