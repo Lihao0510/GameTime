@@ -48,17 +48,14 @@ class APP extends React.Component {
                                         ...configure,
                                         gestures: {}
                                     };
-                                    break;
                                 case 'Contribute':
                                     configure = Navigator.SceneConfigs.FloatFromBottom;
                                     return {
                                         ...configure,
                                         gestures: {}
                                     };
-                                    break;
                                 default:
                                     return configure = Navigator.SceneConfigs.PushFromRight;
-                                    break;
                             }
                         }}
                         renderScene={(route, navigator) => {

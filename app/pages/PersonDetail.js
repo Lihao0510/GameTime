@@ -102,7 +102,7 @@ class PersonDetail extends Component {
                 <Button onClick={this.onClick}>显示</Button>
                 <Button
                     type="primary"
-                    onClick={this.showAlert}
+                    onClick={this.logoutAction}
                     style={{
                         position: 'absolute',
                         bottom: 0,

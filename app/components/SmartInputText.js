@@ -97,7 +97,8 @@ const styles = StyleSheet.create({
     },
     editText: {
         flex: 1,
-        marginLeft: 5
+        marginLeft: 5,
+        padding: 0
     }
 });
 
