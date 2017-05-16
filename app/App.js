@@ -12,7 +12,6 @@ import React from 'react';
 import Banner from 'react-native-swiper';
 import Main from './Main';
 import WindowUtil from './utils/WindowUtil';
-import localStorage from './utils/Storage';
 import { Provider } from 'react-redux';
 import Store from './redux/Store';
 let loadingPicture = require('./images/pictures/pictrue_app_start.jpg');
@@ -22,39 +21,61 @@ let guidePic3 = require('./images/pictures/guide_3.png');
 let guidePic4 = require('./images/pictures/guide_4.png');
 let window = WindowUtil.window;
 
-class GameTime extends React.Component {
+class App extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            showWelcome: 1
-        }
-        
+            showWelcome: 1,
+            showGuide: 1
+        };
+        this.getLoginStatus = this.getLoginStatus.bind(this);
+        this.jumpPage = this.jumpPage.bind(this);
     }
 
     componentDidMount() {
-        global.storage = localStorage;
-        this.getLoginStatus = this.getLoginStatus.bind(this);
-        this.getLoginStatus();
-        setTimeout(() => {
-            this.setState({
-                showWelcome: 2
-            })
-        }, 2000);
+        this.getLoginStatus()
+        setTimeout(this.jumpPage, 2000);
+    }
+
+    jumpPage() {
+        console.log('当前状态:' + this.state.showWelcome);
+        switch (this.state.showGuide) {
+            case 0:
+                this.setState({
+                    showWelcome: 0
+                })
+                break;
+            case 1:
+                this.setState({
+                    showWelcome: 2
+                })
+                break;
+            default:
+                this.setState({
+                    showWelcome: 2
+                })
+                break
+        }
     }
 
     getLoginStatus() {
-        localStorage.load({
+        storage.load({
             key: 'CurUser',
         }).then((result) => {
             if (result && result.user_phone !== '') {
-                this.props.onLoginOK(result)
+                console.log('成功获取登录信息!');
+                this.setState({
+                    showGuide: 0
+                })
             } else {
-
+                console.log('您尚未登录信息!');
             }
-            console.log('成功获取信息!');
         }).catch(err => {
             console.log('出错了!');
+            this.setState({
+                showGuide: 1
+            })
         });
     }
 
@@ -134,4 +155,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default GameTime;
+export default App;
