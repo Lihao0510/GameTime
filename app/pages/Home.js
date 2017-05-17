@@ -89,7 +89,6 @@ class Home extends Component {
                 }
             });
         });
-
     }
 
     renderFloatSearch() {

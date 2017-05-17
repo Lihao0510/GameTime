@@ -81,10 +81,8 @@ class APP extends React.Component {
                                         ...configure,
                                         gestures: {}
                                     };
-                                    break;
                                 default:
                                     return configure = Navigator.SceneConfigs.PushFromRight;
-                                    break;
                             }
                         }}
                         renderScene={(route, navigator) => {

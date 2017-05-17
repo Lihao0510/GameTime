@@ -90,7 +90,6 @@ class App extends React.Component {
                                 style={styles.guideView}
                             >
                                 <Banner
-                                    style={styles.guideView}
                                     dotColor="rgba(255, 255, 255, 0)"
                                     activeDotColor="rgba(255, 255, 255, 0)"
                                     loop={false}
