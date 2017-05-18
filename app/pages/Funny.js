@@ -5,7 +5,7 @@
  * Created by lihao on 2017/4/22.
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -14,11 +14,12 @@ import {
     Image,
     TextInput,
     TouchableWithoutFeedback,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView
 } from 'react-native';
 import Banner from 'react-native-swiper';
 import Toolbar from '../container/Toolbar';
-import {Popup, Button} from 'antd-mobile';
+import { Popup, Button } from 'antd-mobile';
 import WindowUtil from '../utils/WindowUtil';
 import ColorUtil from '../utils/ColorUtils';
 
@@ -27,6 +28,56 @@ import bannerPic2 from '../images/pictures/banner_2.jpg';
 import bannerPic3 from '../images/pictures/banner_3.jpeg';
 import bannerPic4 from '../images/pictures/banner_4.jpg';
 const adImageArr = [bannerPic1, bannerPic2, bannerPic3, bannerPic4];
+
+const forumModules = [{
+    moduleKey: 0,
+    moduleName: '新人交流',
+    moduleImg: require('../images/logo/logo_lol.png')
+}, {
+    moduleKey: 1,
+    moduleName: '符文之地',
+    moduleImg: require('../images/logo/logo_lol.png')
+}, {
+    moduleKey: 2,
+    moduleName: 'Dota大厅',
+    moduleImg: require('../images/logo/logo_dota.png')
+}, {
+    moduleKey: 3,
+    moduleName: '炉石酒馆',
+    moduleImg: require('../images/logo/logo_stone.png')
+}, {
+    moduleKey: 4,
+    moduleName: '王者荣耀',
+    moduleImg: require('../images/logo/logo_nongyao.png')
+}, {
+    moduleKey: 5,
+    moduleName: '艾泽拉斯',
+    moduleImg: require('../images/logo/logo_lol.png')
+}, {
+    moduleKey: 6,
+    moduleName: '枪王战场',
+    moduleImg: require('../images/logo/logo_lol.png')
+}, {
+    moduleKey: 7,
+    moduleName: '皇室之家',
+    moduleImg: require('../images/logo/logo_lol.png')
+}, {
+    moduleKey: 8,
+    moduleName: '手游广场',
+    moduleImg: require('../images/logo/logo_lol.png')
+}, {
+    moduleKey: 9,
+    moduleName: '单机大作',
+    moduleImg: require('../images/logo/logo_lol.png')
+}, {
+    moduleKey: 10,
+    moduleName: '符文之地',
+    moduleImg: require('../images/logo/logo_lol.png')
+}, {
+    moduleKey: 11,
+    moduleName: '交友板块',
+    moduleImg: require('../images/logo/logo_lol.png')
+},];
 
 class Funny extends Component {
 
@@ -105,7 +156,7 @@ class Funny extends Component {
                     确认发布
                 </Button>
             </View>
-            , {animationType: 'slide-up', maskClosable: true});
+            , { animationType: 'slide-up', maskClosable: true });
     }
 
     closeCheckIn() {
@@ -120,9 +171,9 @@ class Funny extends Component {
                 autoplay={true}
                 autoplayTimeout={3}
                 height={200}
-                paginationStyle={{bottom: 10}}
-                dotStyle={{backgroundColor: 'rgba(0,0,0,.2)', width: 6, height: 6}}
-                activeDotStyle={{backgroundColor: 'rgba(0,0,0,.5)', width: 6, height: 6}}>
+                paginationStyle={{ bottom: 10 }}
+                dotStyle={{ backgroundColor: 'rgba(0,0,0,.2)', width: 6, height: 6 }}
+                activeDotStyle={{ backgroundColor: 'rgba(0,0,0,.5)', width: 6, height: 6 }}>
                 {
                     adImageArr.map((item, position) => {
                         return (
@@ -148,10 +199,45 @@ class Funny extends Component {
         )
     }
 
-    render() {
-        const {onDrawerOpen, onDrawerClose, navigator} = this.props;
+    renderGrid() {
+
         return (
-            <View style={styles.container}>
+            <View
+                style={styles.gridView}
+            >
+                {
+                    forumModules.map((item, position) => {
+                        return (
+                            <TouchableOpacity
+                                key={position}
+                                style={styles.gridItem}
+                            >
+                                <Image
+                                    style={styles.gridImage}
+                                    source={item.moduleImg}
+                                />
+                                <Text
+                                    style={styles.gridText}
+                                >
+                                    {item.moduleName}
+                                </Text>
+                            </TouchableOpacity>
+                        )
+                    })
+                }
+            </View>
+        )
+
+
+    }
+
+    render() {
+        const { onDrawerOpen, onDrawerClose, navigator } = this.props;
+        return (
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={styles.container}
+            >
                 <Toolbar
                     rightIcon="CHECKIN"
                     onLeftPress={onDrawerOpen}
@@ -161,7 +247,8 @@ class Funny extends Component {
                     {...this.props}
                 />
                 {this.renderBanner()}
-            </View>
+                {this.renderGrid()}
+            </ScrollView>
         );
     }
 }
@@ -171,11 +258,31 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
+    gridView: {
+        backgroundColor: ColorUtil.middleGray,
+        flex: 1,
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: 'space-around'
     },
+    gridItem: {
+        backgroundColor: ColorUtil.white,
+        height: 108,
+        width: WindowUtil.window.width / 3 - 1,
+        marginTop: 1,
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    },
+    gridText: {
+        color: ColorUtil.deepDark,
+        fontSize: 16
+    },
+    gridImage: {
+        marginTop: 10,
+        width: 54,
+        height: 54,
+        borderRadius: 27
+    }
 });
 
 export default Funny;

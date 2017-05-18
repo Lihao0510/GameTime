@@ -337,7 +337,7 @@ class Home extends Component {
     }
 
     renderButtonGroup() {
-        const itemWidth = screenWidth / 4;
+        const itemWidth = screenWidth / 4 - 1;
         const itemheight = itemWidth * 0.6 + 20;
         let renderSwipeView = (types) => {
             return (
@@ -351,9 +351,6 @@ class Home extends Component {
                                         this.props.navigator.push({
                                             component: NewsList,
                                             name: 'NewsList',
-                                            args: {
-                                                name: '我的信息'
-                                            }
                                         })
                                     }}
                                     style={{width: itemWidth, height: itemheight}}
@@ -373,11 +370,13 @@ class Home extends Component {
         return (
             <Swiper
                 height={itemheight * 2.4}
+                loop={false}
+                autoplay={false}
                 paginationStyle={{bottom: 10}}
                 dotStyle={{backgroundColor: 'rgba(0,0,0,.2)', width: 6, height: 6}}
                 activeDotStyle={{backgroundColor: 'rgba(0,0,0,.5)', width: 6, height: 6}}>
                 {renderSwipeView(['美食', '甜品饮品', '商店超市', '预定早餐', '果蔬生鲜', '新店特惠', '准时达', '高铁订餐'])}
-                {renderSwipeView(['土豪推荐', '鲜花蛋糕', '汉堡炸鸡', '日韩料理', '麻辣烫', '披萨意面', '川湘菜', '包子粥店'])}
+                {renderSwipeView(['土豪推荐', '鲜花蛋糕', '汉堡炸鸡', '日韩料理', '麻辣烫', '披萨意面'])}
             </Swiper>
         )
     }

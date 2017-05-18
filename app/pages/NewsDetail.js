@@ -18,12 +18,9 @@ import ImagePicker from 'react-native-image-picker';
 
 const options = {
     title: '请选择图片来源',
-    cancelButtonTitle: '取消',
-    takePhotoButtonTitle: '拍照',
-    chooseFromLibraryButtonTitle: '相册图片',
-    customButtons: [
-        { name: 'hangge', title: 'hangge.com图片' },
-    ],
+    cancelButtonTitle: '取消选择',
+    takePhotoButtonTitle: '拍照上传',
+    chooseFromLibraryButtonTitle: '从相册选择',
     storageOptions: {
         skipBackup: true,
         path: 'images'
