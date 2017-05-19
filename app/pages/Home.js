@@ -351,6 +351,9 @@ class Home extends Component {
                                         this.props.navigator.push({
                                             component: NewsList,
                                             name: 'NewsList',
+                                            args: {
+                                                titleText: item
+                                            }
                                         })
                                     }}
                                     style={{width: itemWidth, height: itemheight}}

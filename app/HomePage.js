@@ -1,4 +1,5 @@
 /**
+ * APP主页，在这里配置了TabNavigator的四个分页面
  * Created by lihao on 2017/4/22.
  */
 

@@ -5,7 +5,7 @@
  * Created by lihao on 2017/4/22.
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     StyleSheet,
     Text,
@@ -18,9 +18,10 @@ import {
     TouchableOpacity
 } from 'react-native';
 import NewsDetail from './NewsDetail';
+import NewsList from './NewsList';
 import Contribute from './Contribute';
 import Toolbar from '../container/Toolbar';
-import RefreshListView, {RefreshState} from '../components/RefreshListView';
+import RefreshListView, { RefreshState } from '../components/RefreshListView';
 import NewsListItem from '../components/NewsListItem'
 import ColorUtil from '../utils/ColorUtils';
 import WindowUtil from '../utils/WindowUtil';
@@ -103,7 +104,7 @@ class News extends Component {
                             width: WindowUtil.window.width
                         }
                         }
-                               source={bannerImageArr[this.state.curAdImage]}
+                            source={bannerImageArr[this.state.curAdImage]}
                         />
                     </TouchableWithoutFeedback>
                     <View
@@ -166,6 +167,15 @@ class News extends Component {
                     style={{
                         alignItems: 'center'
                     }}
+                    onPress={() => {
+                        this.props.navigator.push({
+                            component: NewsList,
+                            name: 'NewsList',
+                            args: {
+                                titleText: '英雄联盟新闻'
+                            }
+                        })
+                    }}
                 >
                     <Image
                         source={require('../images/logo/logo_lol.png')}
@@ -178,7 +188,7 @@ class News extends Component {
                     <Text
                         style={{
                             marginTop: 3,
-                            fontSize:12,
+                            fontSize: 12,
                             color: ColorUtil.dark
                         }}
                     >
@@ -188,6 +198,15 @@ class News extends Component {
                 <TouchableOpacity
                     style={{
                         alignItems: 'center'
+                    }}
+                    onPress={() => {
+                        this.props.navigator.push({
+                            component: NewsList,
+                            name: 'NewsList',
+                            args: {
+                                titleText: 'DOTA2新闻'
+                            }
+                        })
                     }}
                 >
                     <Image
@@ -201,7 +220,7 @@ class News extends Component {
                     <Text
                         style={{
                             marginTop: 3,
-                            fontSize:12,
+                            fontSize: 12,
                             color: ColorUtil.dark
                         }}
                     >
@@ -211,6 +230,15 @@ class News extends Component {
                 <TouchableOpacity
                     style={{
                         alignItems: 'center'
+                    }}
+                    onPress={() => {
+                        this.props.navigator.push({
+                            component: NewsList,
+                            name: 'NewsList',
+                            args: {
+                                titleText: '王者荣耀新闻'
+                            }
+                        })
                     }}
                 >
                     <Image
@@ -224,7 +252,7 @@ class News extends Component {
                     <Text
                         style={{
                             marginTop: 3,
-                            fontSize:12,
+                            fontSize: 12,
                             color: ColorUtil.dark
                         }}
                     >
@@ -234,6 +262,15 @@ class News extends Component {
                 <TouchableOpacity
                     style={{
                         alignItems: 'center'
+                    }}
+                    onPress={() => {
+                        this.props.navigator.push({
+                            component: NewsList,
+                            name: 'NewsList',
+                            args: {
+                                titleText: '炉石传说新闻'
+                            }
+                        })
                     }}
                 >
                     <Image
@@ -247,7 +284,7 @@ class News extends Component {
                     <Text
                         style={{
                             marginTop: 3,
-                            fontSize:12,
+                            fontSize: 12,
                             color: ColorUtil.dark
                         }}
                     >
@@ -273,7 +310,7 @@ class News extends Component {
 
 
     render() {
-        const {onDrawerOpen, onDrawerClose, navigator} = this.props;
+        const { onDrawerOpen, onDrawerClose, navigator } = this.props;
         return (
             <View style={styles.container}>
                 <Toolbar

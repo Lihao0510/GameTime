@@ -1,4 +1,5 @@
 /**
+ * APP欢迎页面与未登录时的引导页面
  * Created by lihao on 2017/4/22.
  */
 import {
@@ -10,7 +11,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import Banner from 'react-native-swiper';
-import Main from './Main';
+import Navigate from './Navigate';
 import WindowUtil from './utils/WindowUtil';
 import { Provider } from 'react-redux';
 import Store from './redux/Store';
@@ -84,7 +85,7 @@ class App extends React.Component {
             <Provider store={Store}>
                 {
                     this.state.showWelcome == 0 ?
-                        <Main /> :
+                        <Navigate /> :
                         this.state.showWelcome == 2 ?
                             <View
                                 style={styles.guideView}

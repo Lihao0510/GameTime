@@ -1,6 +1,6 @@
 /**
- * 新闻小分类列表
- * Created by lihao on 2017/5/9.
+ * 论坛小分类帖子列表
+ * Created by lihao on 2017/5/19.
  */
 
 

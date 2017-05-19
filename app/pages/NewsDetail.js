@@ -1,9 +1,7 @@
 /**
  * Created by lihao on 2017/4/23.
  */
-/**
- * Created by lihao on 2017/4/22.
- */
+
 
 
 import React, { Component } from 'react';
