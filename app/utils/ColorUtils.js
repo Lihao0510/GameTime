@@ -12,7 +12,8 @@ const colors = {
     nearlyWhite: '#EEEEEE',
     whiteGray: '#D9D9D9',
     mostWhite: '#EAEAEA',
-    white: '#FFFFFF'
+    white: '#FFFFFF',
+    transparent: 'rgba(255, 255, 255, 0)',
 };
 
 export default colors;

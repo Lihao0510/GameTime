@@ -22,6 +22,7 @@ import Toolbar from '../container/Toolbar';
 import { Popup, Button } from 'antd-mobile';
 import WindowUtil from '../utils/WindowUtil';
 import ColorUtil from '../utils/ColorUtils';
+import ForumList from './ForumList';
 
 import bannerPic1 from '../images/pictures/banner_1.jpg';
 import bannerPic2 from '../images/pictures/banner_2.jpg';
@@ -211,6 +212,15 @@ class Funny extends Component {
                             <TouchableOpacity
                                 key={position}
                                 style={styles.gridItem}
+                                onPress={() => {
+                                    this.props.navigator.push({
+                                        component: ForumList,
+                                        name: 'FormList',
+                                        args: {
+                                            titleText: item.moduleName
+                                        }
+                                    })
+                                }}
                             >
                                 <Image
                                     style={styles.gridImage}
