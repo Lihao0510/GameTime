@@ -3,7 +3,7 @@
  * Created by lihao on 2017/4/22.
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -12,23 +12,26 @@ import {
     Image,
     BackAndroid,
     Platform,
-    StatusBar
+    StatusBar,
+    TouchableOpacity
 } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
-import DrawerLayout from 'react-native-drawer'
-import {connect} from 'react-redux';
-import DrawerView from './container/DrawerView'
-import Home from './pages/Home'
-import News from './pages/News'
-import Funny from './pages/Funny'
-import System from './pages/System'
+import DrawerLayout from 'react-native-drawer';
+import { connect } from 'react-redux';
+import DrawerView from './container/DrawerView';
+import Home from './pages/Home';
+import News from './pages/News';
+import Circle from './pages/Circle';
+import Funny from './pages/Funny';
+import System from './pages/System';
+import WindowUtil from './utils/WindowUtil';
 
-import {openDrawer, closeDrawer} from './redux/actions/DrawerAction'
-import {initList} from './redux/actions/HomeListAction'
+import { openDrawer, closeDrawer } from './redux/actions/DrawerAction'
+import { initList } from './redux/actions/HomeListAction'
 
 const drawerStyles = {
-    drawer: {shadowColor: '#333333', shadowOpacity: 3, shadowRadius: 3},
-    main: {paddingLeft: 0},
+    drawer: { shadowColor: '#333333', shadowOpacity: 3, shadowRadius: 3 },
+    main: { paddingLeft: 0 },
 }
 
 class WisdomNews extends Component {
@@ -65,22 +68,23 @@ class WisdomNews extends Component {
     }
 
     render() {
-        const {onDrawerOpen, onDrawerClose} = this.props;
+        const { onDrawerOpen, onDrawerClose } = this.props;
         return (
             <DrawerLayout
                 type="static"
-                content={<DrawerView {...this.props}/>}
+                content={<DrawerView {...this.props} />}
                 openDrawerOffset={90}
                 onClose={onDrawerClose}
                 styles={drawerStyles}
                 open={this.props.open}
                 tweenHandler={DrawerLayout.tweenPresets.parallax}
             >
+
                 <TabNavigator
                     tabBarStyle={styles.tabStyle}
                     style={{
                         shadowColor: 'black',
-                        shadowOffset: {width: 0, height: 0},
+                        shadowOffset: { width: 0, height: 0 },
                         shadowOpacity: 0.6,
                         shadowRadius: 9
                     }}
@@ -88,60 +92,81 @@ class WisdomNews extends Component {
                     <TabNavigator.Item
                         title="首页"
                         renderIcon={() => <Image source={require('./images/icons/icon_home_normal.png')}
-                                                 style={styles.iconStyle}/>}
+                            style={styles.iconStyle} />}
                         renderSelectedIcon={() => <Image source={require('./images/icons/icon_home_selected.png')}
-                                                         style={styles.iconStyle}/>}
+                            style={styles.iconStyle} />}
                         selected={this.state.selectedTab == 'home'}
-                        onPress={ () => this.setState({
+                        onPress={() => this.setState({
                             selectedTab: 'home'
                         })}
                         titleStyle={styles.titleStyle}
                     >
-                        <Home {...this.props}/>
+                        <Home {...this.props} />
                     </TabNavigator.Item>
                     <TabNavigator.Item
                         title="新闻"
                         renderIcon={() => <Image source={require('./images/icons/icon_news_normal.png')}
-                                                 style={styles.iconStyle}/>}
+                            style={styles.iconStyle} />}
                         renderSelectedIcon={() => <Image source={require('./images/icons/icon_news_selected.png')}
-                                                         style={styles.iconStyle}/>}
+                            style={styles.iconStyle} />}
                         selected={this.state.selectedTab == 'news'}
-                        onPress={ () => this.setState({
+                        onPress={() => this.setState({
                             selectedTab: 'news'
                         })}
                         titleStyle={styles.titleStyle}
                     >
-                        <News {...this.props}/>
+                        <News {...this.props} />
+                    </TabNavigator.Item>
+                    <TabNavigator.Item
+                        title="水友圈"
+                        selected={this.state.selectedTab == 'circle'}
+                        /*onPress={ () => this.setState({
+                            selectedTab: 'circle'
+                        })}*/
+                        titleStyle={styles.titleStyle}
+                    >
+                        <Circle {...this.props} />
                     </TabNavigator.Item>
                     <TabNavigator.Item
                         title="论坛"
                         renderIcon={() => <Image source={require('./images/icons/icon_funny_normal.png')}
-                                                 style={styles.iconStyle}/>}
+                            style={styles.iconStyle} />}
                         renderSelectedIcon={() => <Image source={require('./images/icons/icon_funny_selected.png')}
-                                                         style={styles.iconStyle}/>}
+                            style={styles.iconStyle} />}
                         selected={this.state.selectedTab == 'funny'}
-                        onPress={ () => this.setState({
+                        onPress={() => this.setState({
                             selectedTab: 'funny'
                         })}
                         titleStyle={styles.titleStyle}
                     >
-                        <Funny {...this.props}/>
+                        <Funny {...this.props} />
                     </TabNavigator.Item>
                     <TabNavigator.Item
                         title="我的"
                         renderIcon={() => <Image source={require('./images/icons/icon_system_normal.png')}
-                                                 style={styles.iconStyle}/>}
+                            style={styles.iconStyle} />}
                         renderSelectedIcon={() => <Image source={require('./images/icons/icon_system_selected.png')}
-                                                         style={styles.iconStyle}/>}
+                            style={styles.iconStyle} />}
                         selected={this.state.selectedTab == 'system'}
-                        onPress={ () => this.setState({
+                        onPress={() => this.setState({
                             selectedTab: 'system'
                         })}
                         titleStyle={styles.titleStyle}
                     >
-                        <System {...this.props}/>
+                        <System {...this.props} />
                     </TabNavigator.Item>
                 </TabNavigator>
+                <TouchableOpacity 
+                    style={styles.waterCircle}
+                    onPress={() => this.setState({
+                        selectedTab: 'circle'
+                    })}
+                >
+                    <Image
+                        style={styles.waterCircleImage}
+                        source={require('./images/icons/icon_waterfriend_circle_filled.png')}
+                    />
+                </TouchableOpacity>
             </DrawerLayout>
         );
     }
@@ -175,6 +200,17 @@ const styles = StyleSheet.create({
         shadowColor: '#000000',
         shadowOpacity: 0.8,
         shadowRadius: 3,
+    },
+    waterCircle: {
+        position: 'absolute',
+        bottom: 22,
+        left: WindowUtil.window.width / 2 - 20,
+        width: 40,
+        height: 40,
+    },
+    waterCircleImage: {
+        width: 40,
+        height: 40,
     }
 });
 

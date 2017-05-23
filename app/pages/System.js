@@ -191,6 +191,15 @@ class System extends Component {
                     >
                         个人信息
                     </Text>
+                    <Image
+                        style={{
+                            width: 43,
+                            height: 18,
+                            marginLeft: 15
+                        }}
+                        resizeMode="contain"
+                        source={require('../images/icons/icon_lv9.png')}
+                    />
                     <View
                         style={{
                             flex: 1
