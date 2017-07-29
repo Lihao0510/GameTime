@@ -82,6 +82,11 @@ class NewsList extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            titleText: this.props.titleText,
+        }
+        this.renderForumHeader = this.renderForumHeader.bind(this);
+        this.renderForumItem = this.renderForumItem.bind(this);
     }
 
     listKeyExtractor = (item, index) => item.key;
@@ -100,13 +105,30 @@ class NewsList extends Component {
                     <View
                         style={styles.topMessage}
                     >
-                        <Text>第一条公告</Text>
+                        <Image
+                            resizeMode="contain"
+                            style={styles.topIcon}
+                            source={require('../images/icons/icon_gonggao.png')}
+                        />
+                        <Text
+                            style={styles.topText}
+                            numberOfLines={1}
+                        >请大家注意网络文明,禁止发布不良信息!</Text>
                     </View>
                     <View
                         style={styles.topMessage}
                     >
-                        <Text>第二条公告</Text>
+                        <Image
+                            resizeMode="contain"
+                            style={styles.topIcon}
+                            source={require('../images/icons/icon_zhiding.png')}
+                        />
+                        <Text
+                            style={[styles.topText, { color: ColorUtil.dark }]}
+                            numberOfLines={1}
+                        >欢迎来到{this.state.titleText}论坛版块</Text>
                     </View>
+                    {this.renderDivider()}
                 </View>
             </View>
         )
@@ -118,7 +140,7 @@ class NewsList extends Component {
                 style={{
                     width: WindowUtil.width,
                     height: 4,
-                    backgroundColor: ColorUtil.nearlyWhite
+                    backgroundColor: ColorUtil.whiteGray
                 }}
             />
         )
@@ -128,79 +150,83 @@ class NewsList extends Component {
         console.log(forumBody);
         console.log(forumBody.index);
         return (
-            <TouchableOpacity
-                style={styles.forumItem}
+            <View
+                style={styles.forumItemContainer}
             >
-                {
-                    forumBody.item.picture === '' ?
-                        <View
-                            style={{
-                                width: 0,
-                                height: 0
-                            }}
-                        /> :
-                        <Image
-                            style={styles.itemPicture}
-                            source={testPic}
-                        />
-                }
-                <View
-                    style={{
-                        flex: 1,
-                        height: 70,
-                        marginLeft: 15,
-                        alignItems: 'flex-start',
-                        justifyContent: 'space-between',
-                    }}
+                <TouchableOpacity
+                    style={styles.forumItem}
                 >
-                    <Text
-                        numberOfLines={1}
-                        style={{
-                            fontSize: 16,
-                            color: ColorUtil.deepDark,
-                            fontWeight: 'bold',
-                        }}
-                    >
-                        {forumBody.item.title}
-                    </Text>
-                    <Text
-                        numberOfLines={1}
-                    >
-                        {forumBody.item.shotcut}
-                    </Text>
+                    {
+                        forumBody.item.picture === '' ?
+                            <View
+                                style={{
+                                    width: 0,
+                                    height: 0
+                                }}
+                            /> :
+                            <Image
+                                style={styles.itemPicture}
+                                source={testPic}
+                            />
+                    }
                     <View
                         style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            marginLeft: forumBody.item.picture === '' ? 120 : 0
+                            flex: 1,
+                            height: 70,
+                            marginLeft: 15,
+                            alignItems: 'flex-start',
+                            justifyContent: 'space-between',
                         }}
                     >
-                        <Image
-                            style={styles.smallIcon}
-                            source={require('../images/icons/icon_reader_num.png')}
-                        />
                         <Text
+                            numberOfLines={1}
                             style={{
-                                marginRight: 5
+                                fontSize: 16,
+                                color: ColorUtil.deepDark,
+                                fontWeight: 'bold',
                             }}
-                        >阅读数: {forumBody.item.reader}</Text>
+                        >
+                            {forumBody.item.title}
+                        </Text>
+                        <Text
+                            numberOfLines={1}
+                        >
+                            {forumBody.item.shotcut}
+                        </Text>
                         <View
                             style={{
-                                flex: 1
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                marginLeft: forumBody.item.picture === '' ? 120 : 0
                             }}
-                        />
-                        <Image
-                            style={styles.smallIcon}
-                            source={require('../images/icons/icon_reply_num.png')}
-                        />
-                        <Text
-                            style={{
-                                marginRight: 6
-                            }}
-                        >回帖数: {forumBody.item.reply}</Text>
+                        >
+                            <Image
+                                style={styles.smallIcon}
+                                source={require('../images/icons/icon_reader_num.png')}
+                            />
+                            <Text
+                                style={{
+                                    marginRight: 5
+                                }}
+                            >阅读数: {forumBody.item.reader}</Text>
+                            <View
+                                style={{
+                                    flex: 1
+                                }}
+                            />
+                            <Image
+                                style={styles.smallIcon}
+                                source={require('../images/icons/icon_reply_num.png')}
+                            />
+                            <Text
+                                style={{
+                                    marginRight: 6
+                                }}
+                            >回帖数: {forumBody.item.reply}</Text>
+                        </View>
                     </View>
-                </View>
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </View>
         )
     }
 
@@ -241,9 +267,19 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'rgba(255, 255, 255, 0)',
     },
-    forumItem: {
+    forumItemContainer: {
         width: WindowUtil.width,
         height: 80,
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: ColorUtil.whiteGray,
+    },
+    forumItem: {
+        flex: 1,
+        width: WindowUtil.width - 10,
+        height: 80,
+        marginLeft: 5,
+        marginRight: 5,
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: ColorUtil.white,
@@ -255,6 +291,11 @@ const styles = StyleSheet.create({
     },
     smallIcon: {
         width: 18,
+        height: 18,
+        marginRight: 5
+    },
+    topIcon: {
+        width: 48,
         height: 18,
         marginRight: 5
     },
@@ -271,10 +312,14 @@ const styles = StyleSheet.create({
         backgroundColor: ColorUtil.white,
     },
     topMessage: {
-        height: 30,
+        height: 28,
         backgroundColor: ColorUtil.white,
         flexDirection: 'row',
         alignItems: 'center'
+    },
+    topText: {
+        color: ColorUtil.darkBule,
+        fontSize: 16
     }
 });
 

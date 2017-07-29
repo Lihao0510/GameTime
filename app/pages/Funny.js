@@ -171,7 +171,7 @@ class Funny extends Component {
                 loop={true}
                 autoplay={true}
                 autoplayTimeout={3}
-                height={200}
+                height={160}
                 paginationStyle={{ bottom: 10 }}
                 dotStyle={{ backgroundColor: 'rgba(0,0,0,.2)', width: 6, height: 6 }}
                 activeDotStyle={{ backgroundColor: 'rgba(0,0,0,.5)', width: 6, height: 6 }}>
@@ -187,7 +187,7 @@ class Funny extends Component {
                                 <Image
                                     key={position}
                                     style={{
-                                        height: 200,
+                                        height: 160,
                                         width: WindowUtil.width
                                     }}
                                     source={item}
