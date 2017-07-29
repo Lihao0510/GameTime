@@ -258,6 +258,13 @@ class Funny extends Component {
                 />
                 {this.renderBanner()}
                 {this.renderGrid()}
+                <View
+                    style={{
+                        width: WindowUtil.window.width,
+                        height: 1,
+                        backgroundColor: ColorUtil.middleGray
+                    }}
+                />
             </ScrollView>
         );
     }

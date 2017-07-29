@@ -4,16 +4,17 @@
  */
 
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     Text,
     View,
     FlatList,
     TouchableOpacity,
-    Image
+    Image,
+    Platform
 } from 'react-native';
-import { Button } from 'antd-mobile';
+import {Button} from 'antd-mobile';
 import Toolbar from '../container/Toolbar';
 import WindowUtil from '../utils/WindowUtil';
 import ColorUtil from '../utils/ColorUtils';
@@ -213,7 +214,7 @@ class NewsList extends Component {
                         position: 'absolute',
                         height: 180,
                         width: WindowUtil.window.width,
-                        top: 45
+                        top: Platform.OS == "ios" ? 65 : 45
                     }}
                 />
                 <FlatList
