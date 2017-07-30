@@ -17,6 +17,7 @@ import {
     InteractionManager,
     TouchableOpacity
 } from 'react-native';
+import {connect} from 'react-redux';
 import NewsDetail from './NewsDetail';
 import NewsList from './NewsList';
 import Contribute from './Contribute';
@@ -29,6 +30,7 @@ import bannerPic1 from '../images/pictures/banner_1.jpg';
 import bannerPic2 from '../images/pictures/banner_2.jpg';
 import bannerPic3 from '../images/pictures/banner_3.jpeg';
 import bannerPic4 from '../images/pictures/banner_4.jpg';
+import {getLocalNewsByID} from '../redux/actions/NewsDetailAction';
 
 const bannerImageArr = [bannerPic1, bannerPic2, bannerPic3, bannerPic4];
 const bannerTextArr = ['本田CRV等你来', '天猫T恤节开始', 'TCL引领中国制造', '想不想强奸性虐小萝莉'];
@@ -338,6 +340,7 @@ class News extends Component {
                             <NewsListItem
                                 newsItem={rowData}
                                 onPress={() => {
+                                    this.props.getLocalNewsDtailByID('5960e44fe982fd2a8f89c506');
                                     navigator.push({
                                         component: NewsDetail,
                                         name: 'NewsDetail',
@@ -392,5 +395,22 @@ const styles = StyleSheet.create({
     }
 });
 
-export default News;
+const mapStateToProps = (state, ownProps) => {
+
+    return {
+
+    }
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+
+    return {
+        getLocalNewsDtailByID: (newsID) => {
+            dispatch(getLocalNewsByID(newsID));
+        }
+    }
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(News);
 
