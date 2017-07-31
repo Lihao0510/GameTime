@@ -15,7 +15,12 @@ import {connect} from 'react-redux';
 import {Button} from 'antd-mobile';
 import Toolbar from '../container/Toolbar';
 import WindowUtil from '../utils/WindowUtil';
-import {getLocalNewsByID, GET_DETAIL_SUCCESS, GET_DETAIL_FAIL, GET_DETAIL_START} from '../redux/actions/NewsDetailAction';
+import {
+    getLocalNewsByID,
+    GET_DETAIL_SUCCESS,
+    GET_DETAIL_FAIL,
+    GET_DETAIL_START
+} from '../redux/actions/NewsDetailAction';
 import ColorUtil from '../utils/ColorUtils';
 const screenWidth = WindowUtil.window.width;
 const screenHeight = WindowUtil.window.height;
@@ -35,14 +40,10 @@ class NewsDetail extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            title: '',
-            content: ''
-        }
     }
 
     renderContent() {
-        return(
+        return (
             <View>
 
             </View>
@@ -50,17 +51,7 @@ class NewsDetail extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.newsContent)
-    }
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps.newsStatus);
-        if(this.props.newsStatus === GET_DETAIL_START && nextProps.newsStatus === GET_DETAIL_SUCCESS){
-            this.setState({
-                title: nextProps.newsContent.news_title,
-                content: nextProps.newsContent.news_content
-            })
-        }
     }
 
     render() {
@@ -69,19 +60,22 @@ class NewsDetail extends Component {
             <View style={styles.container}>
                 <Toolbar titleText="HomeDetail" onLeftPress={this.props.navigator.pop} {...this.props} />
                 <ScrollView>
-                    <Image
+                    {this.props.newsContent.news_pic === "" ? <Image
                         style={styles.newsPic}
                         source={require('../images/pictures/banner_4.jpg')}
-                    />
+                    /> : <Image
+                        style={styles.newsPic}
+                        source={{uri: this.props.newsContent.news_pic}}
+                    />}
                     <Text
                         style={styles.newsTitle}
                     >
-                        {this.state.title}
+                        {this.props.newsContent.news_title}
                     </Text>
                     <Text
                         style={styles.newsContent}
                     >
-                        {this.state.content}
+                        {this.props.newsContent.news_content}
                     </Text>
                 </ScrollView>
             </View>

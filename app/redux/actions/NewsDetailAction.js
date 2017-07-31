@@ -56,6 +56,7 @@ export const getLocalNewsByID = (newsID) => {
 };
 
 export const getLocalNewsSuccess = (result) => {
+    console.log('获取新闻成功!');
     return {
         type: GET_DETAIL_SUCCESS,
         news: result
@@ -63,14 +64,28 @@ export const getLocalNewsSuccess = (result) => {
 };
 
 export const getLocalNewsStart = () => {
+    console.log('开始获取新闻请求!');
     return {
-        type: GET_DETAIL_START
+        type: GET_DETAIL_START,
+        news: {
+            news_title: '',
+            news_content: '',
+            news_pic: '',
+            news_from: ''
+        }
     }
 };
 
 export const getLocalNewsFail = (error) => {
+    console.log('获取新闻失败!');
     return {
-        type: GET_DETAIL_START,
-        error: error
+        type: GET_DETAIL_FAIL,
+        error: error,
+        news: {
+            news_title: '',
+            news_content: '',
+            news_pic: '',
+            news_from: ''
+        }
     }
 };
